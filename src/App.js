@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PlayerList from "./components/PlayerList";
+import DisplayWords from "./components/DisplayWords";
+import GamePlay from "./components/GamePlay";
+import "./styles.css"; // Ensure styles.css is imported
 
 function App() {
+  const [players, setPlayers] = useState([]);
+  const [assignedWords, setAssignedWords] = useState([]);
+  const [eliminatedPlayers, setEliminatedPlayers] = useState([]);
+  const [gameStarted, setGameStarted] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={<PlayerList players={players} setPlayers={setPlayers} />}
+        />
+        <Route
+          path="/displaywords"
+          element={
+            <DisplayWords
+              setAssignedWords={setAssignedWords}
+              setGameStarted={setGameStarted}
+            />
+          }
+        />
+        <Route
+          path="/gameplay"
+          element={
+            <GamePlay
+              players={players}
+              assignedWords={assignedWords}
+              setAssignedWords={setAssignedWords}
+              eliminatedPlayers={eliminatedPlayers}
+              setEliminatedPlayers={setEliminatedPlayers}
+            />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
