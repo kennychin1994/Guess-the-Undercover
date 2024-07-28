@@ -60,12 +60,12 @@ html,
 }
 
 .rules-text {
-  width: 100%; /* Ensure full width */
-  text-align: left; /* Ensure text is left-aligned */
+  width: 100%;
+  text-align: left;
 }
 
 .rules-text p {
-  margin-bottom: 10px; /* Add some space between paragraphs */
+  margin-bottom: 10px;
 }
 
 button {
@@ -81,6 +81,14 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
+  border: 2px solid #ccc;
+  pointer-events: none;
 }
 
 input[type="number"] {
@@ -173,9 +181,32 @@ li button:hover {
   background-color: #e0e0ff;
 }
 
-.player-box.disabled {
+.player-box.disabled,
+button:disabled {
   opacity: 0.5;
   pointer-events: none;
   border-color: #ccc;
   background-color: #f0f0f0;
+  color: #ccc;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elimination-message {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #007bff;
+  background-color: #e0f0ff;
+  color: #007bff;
+  border-radius: 4px;
 }

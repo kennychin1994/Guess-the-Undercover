@@ -15,6 +15,9 @@ function GamePlay({
   const [gameOverMessage, setGameOverMessage] = useState("");
   const [localEliminatedPlayers, setLocalEliminatedPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [viewingWord, setViewingWord] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  const [eliminationMessage, setEliminationMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +30,9 @@ function GamePlay({
   }, [assignedWords]);
 
   const handleVote = (playerName) => {
-    setSelectedPlayer(playerName);
+    setSelectedPlayer((prevSelected) =>
+      prevSelected === playerName ? null : playerName
+    );
   };
 
   const handleElimination = () => {
@@ -53,16 +58,21 @@ function GamePlay({
       }
     } else {
       setRemainingNormal((prev) => prev - 1);
-      if (remainingNormal - 1 === remainingUndercover) {
-        const normalWord = assignedWords.find((p) => p.role === "normal").word;
-        const undercoverWord = assignedWords.find(
-          (p) => p.role === "undercover"
-        ).word;
-        setGameOver(true);
-        setGameOverMessage(
-          `Undercovers have succeeded!\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
-        );
-      }
+    }
+
+    if (remainingUndercover >= remainingNormal - 1) {
+      const normalWord = assignedWords.find((p) => p.role === "normal").word;
+      const undercoverWord = assignedWords.find(
+        (p) => p.role === "undercover"
+      ).word;
+      setGameOver(true);
+      setGameOverMessage(
+        `Undercovers have succeeded!\n\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
+      );
+    } else {
+      setEliminationMessage(
+        `${selectedPlayer} has been eliminated, game continues`
+      );
     }
 
     setVotes({});
@@ -74,6 +84,22 @@ function GamePlay({
     setLocalEliminatedPlayers([]);
     setAssignedWords([]);
     navigate("/", { state: { players } });
+  };
+
+  const handleViewWord = () => {
+    if (!selectedPlayer) return;
+    setViewingWord(true);
+    setFlipped(false);
+  };
+
+  const handleCardClick = () => {
+    if (viewingWord) {
+      if (flipped) {
+        setViewingWord(false);
+      } else {
+        setFlipped(true);
+      }
+    }
   };
 
   return (
@@ -117,12 +143,36 @@ function GamePlay({
               </div>
             ))}
           </div>
+          {eliminationMessage && (
+            <div className="elimination-message">{eliminationMessage}</div>
+          )}
           <button onClick={handleElimination} disabled={!selectedPlayer}>
             Eliminate Player
+          </button>
+          <button onClick={handleViewWord} disabled={!selectedPlayer}>
+            View Word
           </button>
         </div>
       )}
       <button onClick={handleRestart}>Restart</button>
+
+      {viewingWord && (
+        <div className="overlay" onClick={handleCardClick}>
+          <div className={`card ${flipped ? "flipped" : ""}`}>
+            <div className="card-face card-front">
+              <h2>{selectedPlayer}</h2>
+            </div>
+            <div className="card-face card-back">
+              <p>
+                {
+                  assignedWords.find((player) => player.name === selectedPlayer)
+                    ?.word
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
