@@ -60,7 +60,7 @@ function GamePlay({
         ).word;
         setGameOver(true);
         setGameOverMessage(
-          `Undercovers have successed!\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
+          `Undercovers have succeeded!\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
         );
       }
     }
@@ -78,8 +78,7 @@ function GamePlay({
 
   return (
     <div className="container">
-      <h1>Game Play</h1>
-      <button onClick={handleRestart}>Restart</button>
+      <h1>Guess the Undercovers</h1>
       {gameOver ? (
         <div>
           <h2>Game Over</h2>
@@ -98,29 +97,32 @@ function GamePlay({
         </div>
       ) : (
         <div>
+          <p>Choose the player that you think is undercover!</p>
           <h2>Round {round}</h2>
-          <ul>
-            {assignedWords.map(
-              (player) =>
-                !localEliminatedPlayers.includes(player.name) && (
-                  <li
-                    key={player.name}
-                    onClick={() => handleVote(player.name)}
-                    style={{
-                      cursor: "pointer",
-                      color: selectedPlayer === player.name ? "red" : "black",
-                    }}
-                  >
-                    {player.name}
-                  </li>
-                )
-            )}
-          </ul>
+          <div className="player-list">
+            {assignedWords.map((player) => (
+              <div
+                key={player.name}
+                className={`player-box ${
+                  selectedPlayer === player.name ? "selected" : ""
+                } ${
+                  localEliminatedPlayers.includes(player.name) ? "disabled" : ""
+                }`}
+                onClick={() =>
+                  !localEliminatedPlayers.includes(player.name) &&
+                  handleVote(player.name)
+                }
+              >
+                {player.name}
+              </div>
+            ))}
+          </div>
           <button onClick={handleElimination} disabled={!selectedPlayer}>
             Eliminate Player
           </button>
         </div>
       )}
+      <button onClick={handleRestart}>Restart</button>
     </div>
   );
 }

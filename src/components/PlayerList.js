@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function PlayerList({ players, setPlayers }) {
+function PlayerList({
+  players,
+  setPlayers,
+  numUndercovers,
+  setNumUndercovers,
+}) {
   const [name, setName] = useState("");
-  const [numUndercovers, setNumUndercovers] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
     const maxUndercovers = Math.floor(players.length / 3);
     if (numUndercovers > maxUndercovers) {
-      setNumUndercovers(maxUndercovers);
+      setNumUndercovers(maxUndercovers > 0 ? maxUndercovers : 1);
+    } else if (numUndercovers < 1 && players.length >= 3) {
+      setNumUndercovers(1);
     }
-  }, [players, numUndercovers]);
+  }, [players, numUndercovers, setNumUndercovers]);
 
   const addPlayer = () => {
     if (name) {
@@ -41,7 +47,7 @@ function PlayerList({ players, setPlayers }) {
 
   return (
     <div className="container">
-      <h1>Who is Undercover</h1>
+      <h1>Guess the Undercovers</h1>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -51,7 +57,7 @@ function PlayerList({ players, setPlayers }) {
       <ul>
         {players.map((player, index) => (
           <li key={index}>
-            {player}
+            <span>{player}</span>
             <button onClick={() => deletePlayer(index)}>Delete</button>
           </li>
         ))}
