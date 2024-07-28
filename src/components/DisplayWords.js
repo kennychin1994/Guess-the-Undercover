@@ -66,7 +66,7 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
   return (
     <div className="container">
       <h1>Guess the Undercovers</h1>
-      <p>Please view your word 1 by 1</p>
+      <p>Please take turn to view your word</p>
       {currentPlayerIndex < players.length ? (
         <div>
           <div className="card-container" onClick={handleFlip}>

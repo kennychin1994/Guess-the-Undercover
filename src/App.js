@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PlayerList from "./components/PlayerList";
 import DisplayWords from "./components/DisplayWords";
 import GamePlay from "./components/GamePlay";
+import Rules from "./components/Rules";
 import "./styles.css";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             />
           }
         />
+        <Route path="/rules" element={<Rules />} />
       </Routes>
     </Router>
   );

@@ -53,7 +53,7 @@ function GamePlay({
       }
     } else {
       setRemainingNormal((prev) => prev - 1);
-      if (remainingNormal - 1 === 1) {
+      if (remainingNormal - 1 === remainingUndercover) {
         const normalWord = assignedWords.find((p) => p.role === "normal").word;
         const undercoverWord = assignedWords.find(
           (p) => p.role === "undercover"

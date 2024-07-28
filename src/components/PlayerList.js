@@ -47,7 +47,12 @@ function PlayerList({
 
   return (
     <div className="container">
-      <h1>Guess the Undercovers</h1>
+      <div className="header">
+        <h1 className="title">Guess the Undercovers</h1>
+        <button className="rules-button" onClick={() => navigate("/rules")}>
+          Rules
+        </button>
+      </div>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
