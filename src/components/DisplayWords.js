@@ -8,6 +8,7 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [assignedWords, setLocalAssignedWords] = useState([]);
+  const [exitLeft, setExitLeft] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,27 +35,22 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
   }, [players, numUndercovers, setAssignedWords]);
 
   const handleFlip = () => {
-    setFlipped(!flipped);
-  };
-
-  const handleNext = () => {
     if (flipped) {
       setFlipped(false);
       setTimeout(() => {
-        if (currentPlayerIndex < players.length - 1) {
-          setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-        } else {
-          setGameStarted(true);
-          navigate("/gameplay");
-        }
-      }, 600); // Match the CSS transition duration
+        setExitLeft(true);
+        setTimeout(() => {
+          setExitLeft(false);
+          if (currentPlayerIndex < players.length - 1) {
+            setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
+          } else {
+            setGameStarted(true);
+            navigate("/gameplay");
+          }
+        }, 600);
+      }, 600);
     } else {
-      if (currentPlayerIndex < players.length - 1) {
-        setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-      } else {
-        setGameStarted(true);
-        navigate("/gameplay");
-      }
+      setFlipped(true);
     }
   };
 
@@ -69,7 +65,10 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
       <p>Please take turn to view your word</p>
       {currentPlayerIndex < players.length ? (
         <div>
-          <div className="card-container" onClick={handleFlip}>
+          <div
+            className={`card-container ${exitLeft ? "exit-left" : ""}`}
+            onClick={handleFlip}
+          >
             <div className={`card ${flipped ? "flipped" : ""}`}>
               <div className="card-face card-front">
                 <h2>{assignedWords[currentPlayerIndex]?.name}</h2>
@@ -79,7 +78,6 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
               </div>
             </div>
           </div>
-          <button onClick={handleNext}>Next</button>
         </div>
       ) : (
         <p>All players have seen their words. The game will now start.</p>

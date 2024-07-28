@@ -7,7 +7,7 @@ function Rules() {
   return (
     <div className="rules-container">
       <h1>Guess the Undercovers</h1>
-      <h3>Welcome to "Who is the Undercover"! Here are the rules:</h3>
+      <h3>Welcome to "Guess the Undercovers"! Here are the rules:</h3>
       <div className="rules-text">
         <p>Each player will receive a word.</p>
         <p>

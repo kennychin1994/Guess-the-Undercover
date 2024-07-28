@@ -20,9 +20,11 @@ function PlayerList({
   }, [players, numUndercovers, setNumUndercovers]);
 
   const addPlayer = () => {
-    if (name) {
+    if (name && !players.includes(name)) {
       setPlayers([...players, name]);
       setName("");
+    } else {
+      alert("Player name must be unique and not empty");
     }
   };
 

@@ -123,12 +123,26 @@ li button:hover {
 .card-container {
   perspective: 1000px;
   margin: 20px;
+  position: relative;
+}
+
+.card-container.exit-left {
+  animation: exitLeft 0.6s forwards;
+}
+
+@keyframes exitLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .card {
   width: 200px;
   height: 150px;
-  transition: transform 0.6s;
+  transition: transform 0.6s, opacity 0.6s;
   transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
