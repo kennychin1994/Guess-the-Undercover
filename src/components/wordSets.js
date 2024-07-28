@@ -1,6 +1,9 @@
 export const wordSets = [
-  { normal: "apple", undercover: "pear" },
-  { normal: "cat", undercover: "lion" },
-  { normal: "car", undercover: "bicycle" },
-  { normal: "men", undercover: "boy" },
+  { normal: "Husband", undercover: "Boyfriend" },
+  { normal: "Dream", undercover: "Fantasy" },
+  { normal: "Car", undercover: "Bicycle" },
+  { normal: "Spiderman", undercover: "Antman" },
+  { normal: "Wine", undercover: "Beer" },
+  { normal: "Girlfriend", undercover: "Ex-Girlfriend" },
+  { normal: "Leopard", undercover: "Tiger" },
 ];
