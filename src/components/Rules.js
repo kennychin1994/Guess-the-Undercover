@@ -9,22 +9,20 @@ function Rules() {
       <h1>Guess the Undercovers</h1>
       <h3>Welcome to "Guess the Undercovers"! Here are the rules:</h3>
       <div className="rules-text">
-        <p>Each player will receive a word.</p>
-        <p>
-          One or more players will receive a different word and will be the
-          undercover(s).
-        </p>
+        <p>Each player gets a word.</p>
+        <p>One or more players get a different word and are the undercovers.</p>
         <p>
           Players take turns to describe their word without saying the word
           itself.
         </p>
         <p>
-          After each round, players vote to eliminate one player who they think
-          is the undercover.
+          After each round, players vote to eliminate one player they suspect is
+          an undercover.
         </p>
-        <p>
-          The game ends if all undercovers are eliminated or if the number of
-          undercovers equals the number of normal players.
+        <p>The game ends when:</p>
+        <p className="tab">All undercovers are eliminated, or</p>
+        <p className="tab">
+          The number of undercovers equals the number of normal players.
         </p>
       </div>
       <button onClick={() => navigate("/")}>Back to Main</button>

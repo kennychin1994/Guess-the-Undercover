@@ -58,7 +58,7 @@ function PlayerList({
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Player Name"
+        placeholder="Enter Player's Name"
       />
       <button onClick={addPlayer}>Add Player</button>
       <ul>
