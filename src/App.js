@@ -10,7 +10,6 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [assignedWords, setAssignedWords] = useState([]);
   const [eliminatedPlayers, setEliminatedPlayers] = useState([]);
-  const [gameStarted, setGameStarted] = useState(false);
   const [numUndercovers, setNumUndercovers] = useState(1);
 
   return (

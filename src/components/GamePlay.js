@@ -7,7 +7,6 @@ function GamePlay({
   setAssignedWords,
   setEliminatedPlayers,
 }) {
-  const [votes, setVotes] = useState({});
   const [round, setRound] = useState(1);
   const [remainingUndercover, setRemainingUndercover] = useState(0);
   const [remainingNormal, setRemainingNormal] = useState(0);
