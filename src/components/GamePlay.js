@@ -18,6 +18,7 @@ function GamePlay({
   const [viewingWord, setViewingWord] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [eliminationMessage, setEliminationMessage] = useState("");
+  const [firstSpeaker, setFirstSpeaker] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,10 +30,20 @@ function GamePlay({
     setRemainingNormal(normals);
   }, [assignedWords]);
 
+  useEffect(() => {
+    const chooseRandomSpeaker = () => {
+      const survivingPlayers = assignedWords.filter(
+        (player) => !localEliminatedPlayers.includes(player.name)
+      );
+      const randomIndex = Math.floor(Math.random() * survivingPlayers.length);
+      setFirstSpeaker(survivingPlayers[randomIndex].name);
+    };
+
+    chooseRandomSpeaker();
+  }, [round, assignedWords, localEliminatedPlayers]);
+
   const handleVote = (playerName) => {
-    setSelectedPlayer((prevSelected) =>
-      prevSelected === playerName ? null : playerName
-    );
+    setSelectedPlayer(playerName);
   };
 
   const handleElimination = () => {
@@ -53,23 +64,24 @@ function GamePlay({
         ).word;
         setGameOver(true);
         setGameOverMessage(
-          `All undercovers have been eliminated!\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
+          `All undercovers have been eliminated!\n\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
         );
       }
     } else {
       setRemainingNormal((prev) => prev - 1);
+      if (remainingUndercover >= remainingNormal - 1) {
+        const normalWord = assignedWords.find((p) => p.role === "normal").word;
+        const undercoverWord = assignedWords.find(
+          (p) => p.role === "undercover"
+        ).word;
+        setGameOver(true);
+        setGameOverMessage(
+          `Undercovers have succeeded!\n\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
+        );
+      }
     }
 
-    if (remainingUndercover >= remainingNormal - 1) {
-      const normalWord = assignedWords.find((p) => p.role === "normal").word;
-      const undercoverWord = assignedWords.find(
-        (p) => p.role === "undercover"
-      ).word;
-      setGameOver(true);
-      setGameOverMessage(
-        `Undercovers have succeeded!\n\nNormal word: <strong>${normalWord}</strong>\nUndercover word: <strong>${undercoverWord}</strong>`
-      );
-    } else {
+    if (!gameOver) {
       setEliminationMessage(
         `${selectedPlayer} has been eliminated, game continues`
       );
@@ -125,6 +137,7 @@ function GamePlay({
         <div>
           <p>Choose the player that you think is undercover!</p>
           <h2>Round {round}</h2>
+          <p>First Player to Speak: {firstSpeaker}</p>
           <div className="player-list">
             {assignedWords.map((player) => (
               <div
