@@ -86,7 +86,6 @@ function GamePlay({
       );
     }
 
-    setVotes({});
     setSelectedPlayer(null);
     setRound((prev) => prev + 1);
   };

@@ -31,7 +31,6 @@ function App() {
           element={
             <DisplayWords
               setAssignedWords={setAssignedWords}
-              setGameStarted={setGameStarted}
               numUndercovers={numUndercovers}
               players={players}
             />

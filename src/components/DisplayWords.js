@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { wordSets } from "./wordSets";
 
-function DisplayWords({ setAssignedWords, setGameStarted }) {
+function DisplayWords({ setAssignedWords }) {
   const { state } = useLocation();
   const { players, numUndercovers } = state;
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -44,7 +44,6 @@ function DisplayWords({ setAssignedWords, setGameStarted }) {
           if (currentPlayerIndex < players.length - 1) {
             setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
           } else {
-            setGameStarted(true);
             navigate("/gameplay");
           }
         }, 600);
