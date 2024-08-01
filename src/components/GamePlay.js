@@ -133,7 +133,17 @@ function GamePlay({
         </div>
       ) : (
         <div>
-          <p>Choose the player that you think is undercover!</p>
+          <p>Take turns describing the your word.</p>
+          <p>
+            Each round, we will help you choose a player to speak first, then
+            continue clockwise.
+          </p>
+          <p>
+            After everyone has spoken, vote and choose the person to eliminate.
+          </p>
+          <p>
+            Eliminate the chosen player by clicking the player's name below.
+          </p>
           <h2>Round {round}</h2>
           <p>First Player to Speak: {firstSpeaker}</p>
           <div className="player-list">

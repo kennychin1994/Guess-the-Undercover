@@ -14,43 +14,46 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PlayerList
-              players={players}
-              setPlayers={setPlayers}
-              numUndercovers={numUndercovers}
-              setNumUndercovers={setNumUndercovers}
-            />
-          }
-        />
-        <Route
-          path="/displaywords"
-          element={
-            <DisplayWords
-              setAssignedWords={setAssignedWords}
-              numUndercovers={numUndercovers}
-              players={players}
-            />
-          }
-        />
-        <Route
-          path="/gameplay"
-          element={
-            <GamePlay
-              players={players}
-              assignedWords={assignedWords}
-              setAssignedWords={setAssignedWords}
-              eliminatedPlayers={eliminatedPlayers}
-              setEliminatedPlayers={setEliminatedPlayers}
-              numUndercovers={numUndercovers}
-            />
-          }
-        />
-        <Route path="/rules" element={<Rules />} />
-      </Routes>
+      <div className="container">
+        <img src="/Logo.png" alt="Logo" className="logo" />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PlayerList
+                players={players}
+                setPlayers={setPlayers}
+                numUndercovers={numUndercovers}
+                setNumUndercovers={setNumUndercovers}
+              />
+            }
+          />
+          <Route
+            path="/displaywords"
+            element={
+              <DisplayWords
+                setAssignedWords={setAssignedWords}
+                numUndercovers={numUndercovers}
+                players={players}
+              />
+            }
+          />
+          <Route
+            path="/gameplay"
+            element={
+              <GamePlay
+                players={players}
+                assignedWords={assignedWords}
+                setAssignedWords={setAssignedWords}
+                eliminatedPlayers={eliminatedPlayers}
+                setEliminatedPlayers={setEliminatedPlayers}
+                numUndercovers={numUndercovers}
+              />
+            }
+          />
+          <Route path="/rules" element={<Rules />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
